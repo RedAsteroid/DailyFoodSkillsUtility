@@ -11,23 +11,23 @@ catsArray = numpy.fromfile(cats, dtype=numpy.uint8)
 #lists of phrases
 skillnum = [*range(1,30,1)]
 activeSkills = 0
-isActive = ["Enabled ", "Disabled"]
-errorList = ["\nAt least one food skill must be enabled", "\nInput not recognized"]
-foodSkills = ["Felyne Carver(Lo)", "Felyne Defender(Hi)", "Felyne Defender(Lo)", "Felyne Deflector",
-              "Felyne Escape Artist", "Felyne Sprinter", "Felynebacker", "Felyne Weakener",
-              "Felyne Riser(Lo)", "Felyne Temper", "Felyne Cliffhanger", "Felyne Gripper",
-              "Felyne Lander", "Felyne Bulldozer", "Felyne Foodie", "Felyne Dungmaster", 
-              "Felyne Fur Coating", "Felyne Trainer", "Felyne Booster", "Felyne Fisher",
-              "Cool Cat", "Felyne Insurance", "Felyne Provoker", "Felyne Parting Gift",
-              "Felyne Researcher", "Felyne Weathercat", "Felyne Biologist", "Felyne Macrozoologist",
-              "Felyne Microzoologist"]
+isActive = ["启用", "禁用"]
+errorList = ["\n必须启用至少一种每日技能", "\n无法识别输入内容"]
+foodSkills = ["猫的解体术【小】", "猫的防御术【大】", "猫的防御术【小】", "猫的弹武好手",
+              "猫的逃走术", "猫的宅配术", "猫的搬运铁人", "猫的弱小招来！",
+              "猫的起身术【小】", "猫的粗暴射击", "猫的攀爬藤蔓达人", "猫的紧抓不放铁人",
+              "猫的着地术", "猫的蛮干术", "猫的赠品术", "猫的异臭球达人", 
+              "猫的长靴术", "猫的随从指导术", "猫的短期催眠术", "猫的钓鱼好手",
+              "猫的休息术", "猫的报酬金保险", "猫的吸引仇恨好手", "猫的后面交给你们了！",
+              "猫的探索好天气", "猫的天气预报", "猫的生物学者", "猫的大型吸引",
+              "猫的小型吸引"]
 foodStarts = [82, 162, 178, 242, 258, 274, 290, 306, 354, 370, 386, 402, 434, 450, 466, 
               546, 578, 626, 642, 674, 690, 706, 722, 738, 754, 770, 882, 898, 914]
 foodEnds = [86, 166, 182, 246, 262, 278, 294, 310, 358, 374, 390, 406, 438, 454, 470, 
             550, 582, 630, 646, 678, 694, 710, 726, 742, 758, 774, 886, 902, 918]
-foodSpaces = [7, 5, 5, 8, 4, 9, 12, 9, 8, 11,
-              6, 10, 11, 8, 11, 7, 6, 10, 10, 11,
-              16, 8, 9, 5, 7, 7, 8, 3, 3]  
+foodSpaces = [5, 5, 5, 9, 11, 11, 9, 7, 5, 9,
+              5, 5, 11, 11, 11, 7, 11, 7, 7, 9,
+              11, 7, 5, 1, 7, 9, 9, 9, 9]  
 #didn't want to write something up to generate this, so prewritten array
 foodLazy = ["\n[01] ", "[02] ", "[03] ", "[04] ", "[05] ", "[06] ", "[07] ", "[08] ", "[09] ", "[10] ",
              "[11] ", "[12] ", "[13] ", "[14] ", "[15] ", "[16] ", "[17] ", "[18] ", "[19] ", "[20] ",
@@ -49,31 +49,31 @@ def checkFood():
             print (foodLazy[i] + foodSkills[i] + " "*int(foodSpaces[i]) + foodActive[i] + "    " , end = "")
         else: print (foodLazy[i] + foodSkills[i] + " "*int(foodSpaces[i]) + foodActive[i])
         drawPos +=1 
-    print ("     Total Active: " + str(totalfood) + " / 29\n")
+    print ("     当前启用的数量： " + str(totalfood) + " / 29\n")
     #print (foodActive) 
 
 #help command
 def commands():
-    print ("\nList of Commands:\n\nfood - Display the status of all daily food skills\nhelp - See this list of commands")
-    print ("delp - Read detailed instructions on how to use the utility\nsave - Create a shiny new 'cat_skillMOD.cat_skill' file")
-    print ("exit - Close the utility\n")
-    print ("bout - See basic utility and author information\n")
-    print ("1-29 - Toggle the daily food skill associated with the input\n")
-    print ("dall - Disable all daily skills besides Felyne Booster")
-    print ("eall - Enable all daily skills\n")
+    print ("\n命令列表：\n\nfood - 显示所有每日技能当前的状态\nhelp - 查看命令列表")
+    print ("delp - 查看此应用程序的详细使用说明\nsave - 创建一个新的 \"cat_skillMOD.cat_skill\" 文件")
+    print ("exit - 关闭程序\n")
+    print ("bout - 查看此应用程序与作者信息\n")
+    print ("1-29 - 切换与输入数字关联的每日技能的启用状态\n")
+    print ("dall - 禁用全部的每日技能，除了 \"猫的短期催眠术\"")
+    print ("eall - 启用全部的每日技能\n")
     
 #detailed help command    
 def detailedHelp():
-    print ("\nType a number to toggle the associated food skill.\ne.g. '1' will enable or disable Felyne Carver(Lo) from the daily rotation.")
-    print ("Once the desired skill setup is reached, type 'save' to create a cat_skillMOD.cat_skill file in the working folder\nAny exising file with the same name will be overwritten.")
-    print ("Move this file to nativePC/common/equip and rename to cat_skill.cat_skill, as with the original unmodified file.")
-    print ("As with most similar mods, Stracker's Loader is required for these changes to be reflected in-game.\n")
+    print ("\n输入数字切换以切换关联的每日技能的启用状态。\n比如： \n输入 \"1\" 后按下回车键，将启用或禁用 \"猫的解体术【小】\" 在每日技能中的轮换。")
+    print ("当您想要的技能设置完毕后，输入 \"save\"，将创建一个 \"cat_skillMOD.cat_skill\" 文件于工作文件夹中。\n任何同名的现有文件都将被覆盖。")
+    print ("将该文件移至 nativePC/common/equip，并重命名为 \"cat_skill.cat_skill\"，与未修改的原始文件一样。")
+    print ("与大多数类似的 mod 一样，需要使用 Stracker's Loader 才能在游戏中反映这些更改。\n")
 
 #author info command    
 def authHelp():
     print ("\nDaily Food Skills Utility v1.1.0 - KJPang 2020")
-    print ("Written in python3.7 (python.org) and packaged via pyinstaller (pyinstaller.org)\n")
-    print ("pyinstaller packages scripts with an entire python environment, hence the hefty file\n")
+    print ("使用 python3.7 (python.org) 编写，并通过 pyinstaller (pyinstaller.org) 打包\n")
+    print ("pyinstaller 会将脚本与整个 python 环境打包，因此会有一个庞大的文件\n")
 
 #save command
 def saveFood():
@@ -81,7 +81,7 @@ def saveFood():
     newFile = open("cat_skillMOD.cat_skill", "wb")
     newFile.write(conv)
     newFile.close()
-    print ("\ncat_skillMOD.cat_skill saved.  \nEnter 'delp' if you don't know what to do with this file.\n")
+    print ("\ncat_skillMOD.cat_skill 已保存!  \n如果不知道如何处理该文件，请输入 \"delp\"。\n")
     
 #disable everything but booster
 def allDsab():
@@ -93,7 +93,7 @@ def allDsab():
     catsArray[706:710] = 0 ; catsArray[722:726] = 0 ; catsArray[738:742] = 0 ; catsArray[754:758] = 0 ; 
     catsArray[770:774] = 0 ; catsArray[882:886] = 0 ; catsArray[898:902] = 0 ; catsArray[914:918] = 0 ;
     catsArray[642:646] = 255
-    print ("\nDisabled all daily skills besides Felyne Booster\n")
+    print ("\n已禁用：除了 \"猫的短期催眠术\" 之外的全部每日技能\n")
     global totalfood
     totalfood = 1
     
@@ -107,13 +107,13 @@ def allEnab():
     catsArray[706:710] = 255 ; catsArray[722:726] = 255 ; catsArray[738:742] = 255 ; catsArray[754:758] = 255 ; 
     catsArray[770:774] = 255 ; catsArray[882:886] = 255 ; catsArray[898:902] = 255 ; catsArray[914:918] = 255 ;
     catsArray[642:646] = 255
-    print ("\nEnabled all daily skills\n")
+    print ("\n已启用：全部的每日技能\n")
     global totalfood
     totalfood = 29
     
-print ("\nWelcome to the Daily Food Skills Utility\n")
+print ("\n欢迎使用 Daily Food Skills Utility\n")
 commands()
-input("Press ENTER to begin\n\n>")
+input("请按下 \"回车键\" 开始\n\n>")
 checkFood()
 
 #take inputs and run linked function
@@ -142,11 +142,11 @@ while waiting != "exit":
             if totalfood != 1:
                 catsArray[foodStarts[holdSkill]:foodEnds[holdSkill]] = 0
                 totalfood -= 1 ; activeSkills = 1
-                print ("\n" + foodSkills[holdSkill] + " is now " + isActive[1] + "\n")
+                print ("\n" + foodSkills[holdSkill] + " 现在为 " + isActive[1] + "\n")
         else: 
             catsArray[foodStarts[holdSkill]:foodEnds[holdSkill]] = 255
             totalfood += 1 ; activeSkills = 1
-            print ("\n" + foodSkills[holdSkill] + " is now " + isActive[0] + "\n")
+            print ("\n" + foodSkills[holdSkill] + " 现在为 " + isActive[0] + "\n")
         if activeSkills == 0:
             print (errorList[0] + "\n")
     else: print (errorList[1] + "\n")
